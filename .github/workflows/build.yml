@@ -26,7 +26,7 @@ jobs:
       
       - name: Install Dependecies
         run: |
-          go install
+          go mod download
       
       - name: Build Binary
         run: |
