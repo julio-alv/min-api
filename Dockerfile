@@ -1,20 +1,20 @@
-FROM golang:tip-20251102-alpine3.22 AS base
+FROM golang:1.25.1-alpine3.22 AS build
+RUN adduser --disabled-password -u 10001 user
 
-WORKDIR /app
-
-# Build source
-FROM base AS builder
-WORKDIR /app
+WORKDIR /go/src/app
 
 COPY . .
-RUN go build -o api .
+RUN go mod download
+RUN go build -ldflags="-s" -o /go/bin/app -v
 
-# Final image
-FROM alpine:3.22 AS runner
+# Runner
+FROM scratch
 WORKDIR /app
 
-COPY --from=builder /app/api ./
+COPY --from=build /go/bin/app /go/bin/app
+COPY --from=build /etc/passwd /etc/passwd
+USER user
 
 EXPOSE 8080
 
-CMD ["./api"]
+ENTRYPOINT [ "/go/bin/app" ]
