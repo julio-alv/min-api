@@ -1,3 +1,3 @@
 # API
 
-This is minimal API to lean about CI/CD and DevOps
+This is minimal API to learn about CI/CD and DevOps
