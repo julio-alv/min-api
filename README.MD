@@ -1,3 +1,3 @@
 # min-api
 
-This is minimal API to learn about CI/CD and DevOps
+This is minimal API to test CI/CD and DevOps Prototypes
